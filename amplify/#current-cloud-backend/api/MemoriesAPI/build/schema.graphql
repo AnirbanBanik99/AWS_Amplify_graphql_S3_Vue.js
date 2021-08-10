@@ -1,0 +1,158 @@
+type Memories {
+  id: ID!
+  name: String!
+  description: String!
+  city: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelMemoriesConnection {
+  items: [Memories]
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelMemoriesFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  description: ModelStringInput
+  city: ModelStringInput
+  and: [ModelMemoriesFilterInput]
+  or: [ModelMemoriesFilterInput]
+  not: ModelMemoriesFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getMemories(id: ID!): Memories
+  listMemories(filter: ModelMemoriesFilterInput, limit: Int, nextToken: String): ModelMemoriesConnection
+}
+
+input CreateMemoriesInput {
+  id: ID
+  name: String!
+  description: String!
+  city: String!
+}
+
+input UpdateMemoriesInput {
+  id: ID!
+  name: String
+  description: String
+  city: String
+}
+
+input DeleteMemoriesInput {
+  id: ID!
+}
+
+type Mutation {
+  createMemories(input: CreateMemoriesInput!, condition: ModelMemoriesConditionInput): Memories
+  updateMemories(input: UpdateMemoriesInput!, condition: ModelMemoriesConditionInput): Memories
+  deleteMemories(input: DeleteMemoriesInput!, condition: ModelMemoriesConditionInput): Memories
+}
+
+input ModelMemoriesConditionInput {
+  name: ModelStringInput
+  description: ModelStringInput
+  city: ModelStringInput
+  and: [ModelMemoriesConditionInput]
+  or: [ModelMemoriesConditionInput]
+  not: ModelMemoriesConditionInput
+}
+
+type Subscription {
+  onCreateMemories: Memories @aws_subscribe(mutations: ["createMemories"])
+  onUpdateMemories: Memories @aws_subscribe(mutations: ["updateMemories"])
+  onDeleteMemories: Memories @aws_subscribe(mutations: ["deleteMemories"])
+}

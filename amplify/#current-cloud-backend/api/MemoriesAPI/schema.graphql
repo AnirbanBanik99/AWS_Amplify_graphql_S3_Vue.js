@@ -1,0 +1,6 @@
+type Memories @model {
+  id: ID!
+  name: String!
+  description: String!
+  city: String!
+}

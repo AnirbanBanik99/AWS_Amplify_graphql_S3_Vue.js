@@ -1,0 +1,8 @@
+{
+    "CreateAPIKey": 1,
+    "AppSyncApiName": "MemoriesAPI",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "S3DeploymentBucket": "amplify-amplifyapp-dev-204801-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/060d930807b981075550a55d536f46968a051836"
+}
